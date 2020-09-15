@@ -26,19 +26,7 @@ jobs:
           at: ~/project
       - aws-s3/sync:
           from: .dist
-          to: 's3://ikegai-bros'
-          overwrite: true
-          arguments: |
-            --acl public-read
-  deploy_demo:
-    docker:
-      - image: circleci/python:3.6-jessie
-    steps:
-      - attach_workspace:
-          at: ~/project
-      - aws-s3/sync:
-          from: .dist
-          to: 's3://ikegai-bros-demo'
+          to: 's3://hr-system-manual'
           overwrite: true
           arguments: |
             --acl public-read
@@ -53,16 +41,9 @@ workflows:
                 - master
                 - demo
       - deploy_master:
-          context: ikegai
+          context: hr-system
           requires:
             - build
           filters:
             branches:
               only: master
-      - deploy_demo:
-          context: ikegai
-          requires:
-            - build
-          filters:
-            branches:
-              only: demo
