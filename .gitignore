@@ -1,0 +1,26 @@
+# Extensions to ignore
+**/*.log
+
+# OS or editor files
+**/.DS_Store
+**/Thumbs.db
+
+# Dependency directories
+**/node_modules/
+
+# Excluding files from project
+**/.dist/
+**/.dist_ui/
+
+# package lock file
+**/package-lock.json
+**/yarn.lock
+
+#Ignore VS File
+/.vs/
+/.vscode/
+
+/src/ect/view/
+/src/ect/storybook/
+
+.vscode

@@ -1,0 +1,9 @@
+@import './_utils/variables';
+@import './_utils/mixins';
+// @import './_utils/reset';
+
+body * {
+    color: color(base);
+    font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    line-height: calc(2px + 3ex + 2px);
+}

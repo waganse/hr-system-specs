@@ -1,0 +1,36 @@
+%gl-container {
+    padding: 20px;
+
+    @include media(sm) {
+        padding: 30px;
+    }
+
+    @include media(md) {
+        padding: 40px;
+    }
+
+    @include media(lg) {
+        padding: 40px 60px;
+    }
+}
+
+%gl-title {
+    margin-bottom: 20px;
+    font-weight: bold;
+
+    @include media(md) {
+        margin-bottom: 30px;
+    }
+
+    @include media(lg) {
+        margin-bottom: 40px;
+    }
+
+    p {
+        margin-bottom: 5px;
+
+        @include media(sm) {
+            margin-bottom: 10px;
+        }
+    }
+}

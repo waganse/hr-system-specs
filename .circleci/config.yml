@@ -1,0 +1,68 @@
+version: 2.1
+orbs:
+  aws-s3: circleci/aws-s3@1.0.15
+
+jobs:
+  build:
+    docker:
+      - image: circleci/node:12
+    steps:
+      - checkout
+      - run:
+          name: Setup Step
+          command: yarn
+      - run:
+          name: Build Step
+          command: yarn build
+      - persist_to_workspace:
+          root: ~/project
+          paths:
+            - .dist
+  deploy_master:
+    docker:
+      - image: circleci/python:3.6-jessie
+    steps:
+      - attach_workspace:
+          at: ~/project
+      - aws-s3/sync:
+          from: .dist
+          to: 's3://ikegai-bros'
+          overwrite: true
+          arguments: |
+            --acl public-read
+  deploy_demo:
+    docker:
+      - image: circleci/python:3.6-jessie
+    steps:
+      - attach_workspace:
+          at: ~/project
+      - aws-s3/sync:
+          from: .dist
+          to: 's3://ikegai-bros-demo'
+          overwrite: true
+          arguments: |
+            --acl public-read
+workflows:
+  version: 2
+  build-deploy:
+    jobs:
+      - build:
+          filters:
+            branches:
+              only:
+                - master
+                - demo
+      - deploy_master:
+          context: ikegai
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
+      - deploy_demo:
+          context: ikegai
+          requires:
+            - build
+          filters:
+            branches:
+              only: demo
