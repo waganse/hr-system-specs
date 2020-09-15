@@ -56,7 +56,7 @@ const webpackConfig = {
           {
             loader: 'html-loader',
             options: {
-              // minimize: true,
+              minimize: false,
             },
           },
           {
